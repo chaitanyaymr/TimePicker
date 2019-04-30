@@ -20,6 +20,7 @@ export class TimerpopupComponent {
   currentHr=1;
   current_hrs: number;
   current_mins: number;
+  current_apm: any;
   constructor(public viewctrl:ViewController,navparams:NavParams) {
     let params=navparams.get('timeObj');
     this.hrs=params.hrs;
@@ -28,6 +29,7 @@ export class TimerpopupComponent {
    
     this.current_hrs=this.hrs;
     this.current_mins=this.mins;
+    this.current_apm=this.apm;
 
   }
 
@@ -126,8 +128,7 @@ export class TimerpopupComponent {
    checkforCurrentSystemTime()
    {
     
-    var current_apm=this.current_hrs>=12?'PM':"AM"
-     if(current_apm==this.apm)
+    if(this.current_apm==this.apm)
      {
        if(this.current_hrs==parseInt(this.hrs))
        {

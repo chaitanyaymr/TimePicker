@@ -15,3 +15,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 $popover-md-width: 320px; $popover-ios-width: 320px; $popover-wp-width: 320px;
+
+.popover-ios .popover-content
+{
+    width:300px;
+}

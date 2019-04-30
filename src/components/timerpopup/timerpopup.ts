@@ -102,6 +102,8 @@ export class TimerpopupComponent {
          this.apm=(this.apm=='AM')?'PM':'AM';
        }
      }
+     else
+     this.hrs=this.setHours(this.hrs);
     
    }
    decMin()
@@ -120,6 +122,10 @@ export class TimerpopupComponent {
         this.mins=59;
       }
       else
+      this.mins=this.setMinutes(this.mins);
+     }
+     else{
+      this.hrs=this.setHours(parseInt(this.hrs));
       this.mins=this.setMinutes(this.mins);
      }
     

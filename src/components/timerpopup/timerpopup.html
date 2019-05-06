@@ -56,12 +56,18 @@
         <ion-label color="primary" style="text-align:center"><h2>Select Time</h2></ion-label>
               <ion-grid>
                  <ion-row>
-                   <ion-col style="text-align:center;padding-bottom:0px;" (click)="incHr()">
-                      <ion-icon ios="ios-arrow-up" md="md-arrow-up" ></ion-icon>
+                   <ion-col style="text-align:center;padding-bottom:0px;" (click)="incHr()" *ngIf="arrow_up==0">
+                      <ion-icon ios="ios-arrow-up" md="md-arrow-up"  style="color:#000000"></ion-icon>
                    </ion-col >
-                   <ion-col style="text-align:center;padding-bottom:0px;" (click)="incMin()" >
-                      <ion-icon ios="ios-arrow-up" md="md-arrow-up" style="margin-left:18px;"></ion-icon>
+                   <ion-col style="text-align:center;padding-bottom:0px;"  *ngIf="arrow_up==1">
+                    <ion-icon ios="ios-arrow-up" md="md-arrow-up" style="color:lightgrey" ></ion-icon>
+                 </ion-col >
+                   <ion-col style="text-align:center;padding-bottom:0px;" (click)="incMin()"  *ngIf="arrow_up==0">
+                      <ion-icon ios="ios-arrow-up" md="md-arrow-up" style="margin-left:18px;color:#000000"></ion-icon>
                    </ion-col>
+                   <ion-col style="text-align:center;padding-bottom:0px;"   *ngIf="arrow_up==1">
+                    <ion-icon ios="ios-arrow-up" md="md-arrow-up" style="margin-left:18px;color:lightgray"></ion-icon>
+                 </ion-col>
                    <ion-col style="padding-bottom:0px;">
                      <ion-label></ion-label>
                    </ion-col>
@@ -85,16 +91,16 @@
                         </ion-col>
                  </ion-row>
                  <ion-row>
-                    <ion-col style="text-align:center" (click)="decHr()" *ngIf="currentHr==0">
+                    <ion-col style="text-align:center" (click)="decHr()" *ngIf="arrow_down==0">
                         <ion-icon ios="ios-arrow-down" md="md-arrow-down"  style="color:#000000" ></ion-icon>
                     </ion-col>
-                    <ion-col style="text-align:center" *ngIf="currentHr==1">
+                    <ion-col style="text-align:center" *ngIf="arrow_down==1">
                       <ion-icon ios="ios-arrow-down" md="md-arrow-down" style="color:lightgrey"></ion-icon>
                   </ion-col>
-                    <ion-col style="text-align:center" (click)="decMin()"  *ngIf="currentHr==0">
+                    <ion-col style="text-align:center" (click)="decMin()"  *ngIf="arrow_down==0">
                         <ion-icon ios="ios-arrow-down" md="md-arrow-down"  style="margin-left:18px;color:#000000"></ion-icon>
                     </ion-col>
-                    <ion-col style="text-align:center" (click)="decMin()"  *ngIf="currentHr==1">
+                    <ion-col style="text-align:center" (click)="decMin()"  *ngIf="arrow_down==1">
                       <ion-icon ios="ios-arrow-down" md="md-arrow-down"  style="margin-left:18px;color:lightgrey"></ion-icon>
                   </ion-col>
                     <ion-col>

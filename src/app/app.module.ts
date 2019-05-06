@@ -6,12 +6,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { TimerApp } from './app.component';
 
-import {TimerpopupComponent} from '../components/timerpopup/timerpopup';
+
+import { Timerpopup2Component } from '../components/timerpopup2/timerpopup2';
 
 @NgModule({
   declarations: [
     TimerApp,
-    TimerpopupComponent
+    Timerpopup2Component
   ],
   imports: [
     BrowserModule,
@@ -20,7 +21,7 @@ import {TimerpopupComponent} from '../components/timerpopup/timerpopup';
   bootstrap: [IonicApp],
   entryComponents: [
     TimerApp,
-    TimerpopupComponent
+    Timerpopup2Component
   ],
   providers: [
     StatusBar,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
+
 /**
  * Generated class for the TimerpopupComponent component.
  *
@@ -17,19 +18,37 @@ export class TimerpopupComponent {
   hrs:any="";
   mins:any="";
   apm:any="";
-  currentHr=1;
+  arrow_down=1;
+  arrow_up=0;
   current_hrs: number;
   current_mins: number;
   current_apm: any;
+  d1:Date=new Date();
+  d2:Date=new Date();
   constructor(public viewctrl:ViewController,navparams:NavParams) {
     let params=navparams.get('timeObj');
     this.hrs=params.hrs;
     this.mins=params.mins;
     this.apm=params.apm;
    
-    this.current_hrs=this.hrs;
-    this.current_mins=this.mins;
+    this.current_hrs=parseInt(this.hrs);
+    this.current_mins=parseInt(this.mins);
     this.current_apm=this.apm;
+    if(this.current_apm=="PM")
+    {
+      if(this.current_hrs!=12)
+        this.d1.setHours(this.current_hrs+12);
+      else
+      this.d1.setHours(this.current_hrs);
+    }
+    else
+    {
+      if(this.current_hrs==12)
+        this.d1.setHours(this.current_hrs+12)
+        else
+        this.d1.setHours(this.current_hrs);
+    }    
+    this.d1.setMinutes(this.current_mins);
 
   }
 
@@ -59,27 +78,30 @@ export class TimerpopupComponent {
  
    incHr()
    {
-    this.currentHr=this.currentHr==1?0:0
+
+    this.arrow_down=this.arrow_down==1?0:0
     this.hrs=parseInt(this.hrs);
     this.hrs=this.setHours(this.hrs+1);
-    if(this.hrs==12)
-    {
-      this.apm=(this.apm=='AM')?'PM':'AM';
-    }
+    this.FixUpperBound();
+    // if(this.hrs==12)
+    // {
+    //   this.apm=(this.apm=='AM')?'PM':'AM';
+    // }
  
    }
    incMin()
    {
      this.mins=parseInt(this.mins);
-     this.currentHr=this.currentHr==1?0:0 
+     this.arrow_down=this.arrow_down==1?0:0 
      this.mins=this.mins+1;
+     this.FixUpperBound();
      if(this.mins==60)
      {
        this.hrs=this.setHours(parseInt(this.hrs)+1);
-         if(this.hrs==12)
-         {
-           this.apm=(this.apm=='AM')?'PM':'AM';
-         }
+        //  if(this.hrs==12)
+        //  {
+        //    this.apm=(this.apm=='AM')?'PM':'AM';
+        //  }
        this.mins='00';
      }
      else
@@ -90,7 +112,8 @@ export class TimerpopupComponent {
    decHr()
    {
      this.hrs=parseInt(this.hrs);
-     if(!this.checkforCurrentSystemTime())
+     this.arrow_up=this.arrow_up==1?0:0;
+     if(!this.findTimeDifference())
      {
       this.hrs=this.hrs-1;
       if(this.hrs==0)
@@ -109,7 +132,8 @@ export class TimerpopupComponent {
    decMin()
    {
      this.mins=parseInt(this.mins);
-     if(!this.checkforCurrentSystemTime())
+     this.arrow_up=this.arrow_up==1?0:0;
+     if(!this.findTimeDifference())
      {
        this.mins=this.mins-1;
       if(this.mins==-1)
@@ -140,17 +164,81 @@ export class TimerpopupComponent {
        {
          if(this.current_mins==parseInt(this.mins))
          {
-          this.currentHr=1;
+          this.arrow_down=1;
           return true;
          }
        }
      }
    else
    {
-     this.currentHr=0;
+     this.arrow_down=0;
      return false;
    }
 
 
    }
+  setTimeForComparision()
+  {
+    
+    
+   if(this.apm=="PM")
+   {
+     if(this.hrs!=12)
+       this.d2.setHours(parseInt(this.hrs)+12);
+     else
+     this.d2.setHours(parseInt(this.hrs));
+   }
+   else
+   {
+     if(this.hrs==12)
+       this.d2.setHours(parseInt(this.hrs)+12)
+       else
+       this.d2.setHours(parseInt(this.hrs));
+   }    
+   this.d2.setMinutes(parseInt(this.mins));
+   return this.d2;
+  }
+   findTimeDifference()
+   {
+    this.d2=new Date();
+      this.d2=this.setTimeForComparision();
+    var diff=(this.d2.getTime()-this.d1.getTime())/1000;
+    diff=Math.abs(Math.round(diff/60));
+    console.log(diff);
+     if(diff==0)
+     {
+      this.arrow_down=1;
+      return true;
+     }
+     else
+     {
+      this.arrow_down=0;
+      return false;
+     }
+    
+
+   }
+
+   FixUpperBound()
+   {
+    if(this.hrs==12)
+    {
+      this.apm=(this.apm=='AM')?'PM':'AM';
+    }
+     var d3=new Date();
+    var now_day=d3.getDate();
+     this.d2=this.setTimeForComparision();
+     var timer_day=this.d2.getDate();
+      if(now_day!=timer_day)
+          {
+            this.arrow_up=1;
+            return true;
+          }
+          else
+          {
+            this.arrow_up=0;
+            return false;
+          }
+   }
+
 }

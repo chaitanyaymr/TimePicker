@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, PopoverController, IonicPage } from 'ionic-angular';
-import {TimerpopupComponent} from '../../components/timerpopup/timerpopup';
+import {Timerpopup2Component} from '../../components/timerpopup2/timerpopup2';
 
 @IonicPage({name:'home-page'})
 @Component({
@@ -41,7 +41,7 @@ export class HomePage {
   presentPopOver()
   {
     let time={'hrs':this.hrs,'mins':this.mins,'apm':this.apm}
-    const popover=this.popupctrl.create(TimerpopupComponent,{'timeObj':time});
+    const popover=this.popupctrl.create(Timerpopup2Component,{'timeObj':time});
     popover.present();
     popover.onDidDismiss(d=>{
       console.log("Data from component",d);
